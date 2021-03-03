@@ -1,0 +1,16 @@
+{
+  "name": "fileSystem.js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "fileSystem.js",
+  "scripts": {
+    "start:dev": "nodemon bot.js",
+    "start:prod": "node bot.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fs": "0.0.1-security"
+  }
+}
