@@ -1,4 +1,4 @@
-# discord-Bot [unnamed]
+# Coin-Gaming Bot [Provisional name]
 
 ## Descripción:
 
@@ -27,7 +27,9 @@ npm run start:prod
 ## Licencia:
 
 Este proyecto utiliza la licencia MIT:
+
   *  **No existe garantía:** El producto es entregado "tal cual" (como se dice en la licencia) sin garantía de ningún tipo ni explícita ni implícita sobre el producto.
+
   *  **Responsabilidad:** En ningún caso los autores o titulares de los derechos de autor serán los responsables ante cualquier reclamo, daños u otras responsabilidades que surja de fuera de o en relación con el software o el uso del mismo.
 
 ## Dependencias:
