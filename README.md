@@ -1,5 +1,7 @@
 # Coin-Gaming Bot [Provisional name]
 
+![logotipo](./logos/Coin-Gaming.jpg)
+
 ## Descripción:
 
 Este bot permitirá almacenar para cada usuario en el servidor actual una cantidad pactada de coins.
