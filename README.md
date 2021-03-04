@@ -1,6 +1,7 @@
 # Coin-Gaming Bot [Provisional name]
 
-![logotipo](./logos/Coin-Gaming.jpg)
+<p align="center"><img src="./logos/lgo.2.png" width="240" alt="Bot Logo"/>
+</p>
 
 ## Descripción:
 
