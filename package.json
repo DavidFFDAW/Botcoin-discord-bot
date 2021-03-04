@@ -1,15 +1,15 @@
 {
-  "name": "fileSystem.js",
-  "version": "1.0.0",
+  "name": "coin-gaming-bot",
+  "version": "0.1.0",
   "description": "",
-  "main": "fileSystem.js",
+  "main": "bot.js",
   "scripts": {
-    "start:dev": "nodemon bot.js",
-    "start:prod": "node bot.js"
+    "start:dev": "nodemon src/bot.js",
+    "start:prod": "node src/bot.js"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "David Fernández Flores",
+  "license": "MIT",
   "dependencies": {
     "fs": "0.0.1-security"
   },
