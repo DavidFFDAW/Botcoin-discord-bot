@@ -1,8 +1,10 @@
-# Coin-Gaming Bot [Provisional name]
+# Botcoin Bot Official  <span><img src="./assets/images/check.svg" width="25" height="25"></span>
 
-<p align="center"><img src="./logos/lgo.2.png" width="240" alt="Bot Logo"/>
+
+<p align="center"><img src="./assets/images/lgo.2.png" width="270" height="280" alt="Bot Logo"/>
 </p>
 
+<p align="center"><strong>Discord Gaming Coin-Manager Bot</strong></p>
 ## Descripción:
 
 Este bot permitirá almacenar para cada usuario en el servidor actual una cantidad pactada de coins.
@@ -52,20 +54,22 @@ Las principales dependencias que utiliza este proyecto son:
 
   *  **[nodemon:](https://www.npmjs.com/package/nodemon)** Esta dependencia se utiliza en este proyecto para iniciar el bot en modo desarrollador y no se utiliza en la aplicación normal.
 
-  ## En desarrollo:
+  ### Comandos:
 
   ```javascript
-   Flip A Coin:
-    ¿ Quien establece los coins, el juego o el jugador ?
-
-    - Un jugador retará a otro e indicará la cantidad de coins a jugarse (o si no se juega con coins).
-        - feature: ¿Posibilidad de rechazar la partida?
-        - feature: Validar que ambos jugadores tienen suficientes coins para jugar.
-    
-    - El bot contestará de alguna manera y habrá dos reacciones (Cara y Cruz).
-    - El bot esperará a las respuestas (Las respuestas solo pueden ser de los jugadores con el id que inician el juego).
-    - Si los dos jugadores reaccionan se jugará y si no, se cancelará la partida y ningún jugador perdera coins
-    - Internamente el juego generará un numero aleatorio entre 0 y 1 (50% de probabilidades).
-    - El jugador con la reacción ganadora recibirá del perdedor la cantidad pactada de coins.
+    // Los comandos en los que aparece {DEV} indican que están aún en desarrollo y es posible no funcionen adecuadamente.
+    commands: { 
+        hello: 'El bot te saluda'
+        showId: 'Muestra el ID de usuario del usuario ejecutante'
+        myname: 'Muestra tanto el nombre de usuario como el nickname del usuario ejecutante'
+        mycoins{DEV}: 'Muestra las monedas disponibles del usuario que ejecuta este comando'
+        cache{DEV}: 'Perimite asignar una cantidad de monedas iniciales a todos y cada uno de los usuarios del servidor actual'
+    };
   ```
+
+  ### Créditos:
+
+   **Bot logo/icon:** Creado con [Canvas](https://www.canva.com/) y posterior modificación en otros softwares (GIMP).
+
+   **Verified Icon:**  Icons made by [Pixel Perfect]("https://www.flaticon.com/authors/pixel-perfect") from [Flaticon]("https://www.flaticon.com/").
   
