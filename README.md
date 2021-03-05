@@ -1,10 +1,10 @@
 # Botcoin Bot Official  <span><img src="./assets/images/check.svg" width="25" height="25"></span>
 
-
 <p align="center"><img src="./assets/images/lgo.2.png" width="270" height="280" alt="Bot Logo"/>
 </p>
 
 <p align="center"><strong>Discord Gaming Coin-Manager Bot</strong></p>
+
 ## Descripción:
 
 Este bot permitirá almacenar para cada usuario en el servidor actual una cantidad pactada de coins.
