@@ -1,16 +1,17 @@
 {
-  "name": "coin-gaming-bot",
+  "name": "botcoin-bot",
   "version": "0.1.0",
   "description": "",
   "main": "bot.js",
   "scripts": {
-    "start:dev": "nodemon src/bot.js",
-    "start:prod": "node src/bot.js"
+    "start:dev": "nodemon src/botcoin.js",
+    "start:prod": "node src/botcoin.js"
   },
   "keywords": [],
   "author": "David Fernández Flores",
   "license": "MIT",
   "dependencies": {
+    "discord.js": "^12.5.1",
     "fs": "0.0.1-security"
   },
   "devDependencies": {
