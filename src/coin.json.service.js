@@ -1,20 +1,20 @@
-class ListConfigurationsService {
+class CoinServiceWrapper {
     constructor(filename){
         this.fileName = filename;
         this.fs = require('fs');
-        this.createIfNotExists();
+        //this.createIfNotExists();
     }
 
     writeJSON = json => this.fs.writeFileSync(this.fileName, JSON.stringify(json,undefined,2));
     
-    createIfNotExists = () => {
+    /*createIfNotExists = () => {
         if(!this.fs.existsSync(this.fileName)){
             this.writeJSON([
                 { id: 1, lists: [{ name: 'frutas', content: ['Platano','Pera'] }] },
                 { id: 2, lists: [{ name: 'coches', content: ['Mercedes','Citroen','Opel'] }] }
             ]);
         }
-    }
+    }*/
 
     _getJSONObject = _ => {
         const jsonGotten = this.fs.readFileSync(this.fileName,'utf8');
@@ -27,6 +27,16 @@ class ListConfigurationsService {
             this.createUser(userID);
         }
     } */
+    clearUserList = () => {
+        this.writeJSON([]);
+    };
+
+    addUser = (userID,coins) => {
+        let users = this._getJSONObject();
+        users = [...users,{ id: userID, coins: coins }];
+        this.writeJSON(users);
+    }
+
     createUser = (userID,listname,list) => {
         const obj = this._getJSONObject();
         this.writeJSON(finalUsers);
@@ -86,9 +96,11 @@ class ListConfigurationsService {
     getStringifiedLists = (userID) => {
         const obj = this._getJSONObject();
         const foundUser = obj.find(el => el.id === userID);
-        return foundUser.lists.reduce((acc,element) => acc += 'listName: \''+element.name+'\' || lista: '+element.content.toString()+'\n','');
+        return foundUser ? `${foundUser.coins}` : 'ERROR:: No se ha encontrado el elemento a ser buscado';
     }
-}/* 
+}
+module.exports = { CoinServiceWrapper };
+/* 
 
 const configsService = new ListConfigurationsService('./configs.json');/* 
 console.log(configsService.findListByNameAndUserID(1,'Operative-Systems'));
