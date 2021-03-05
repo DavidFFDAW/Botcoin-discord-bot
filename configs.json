@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "lists": [
+      {
+        "name": "frutas",
+        "content": [
+          "Platano",
+          "Pera"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "lists": [
+      {
+        "name": "coches",
+        "content": [
+          "Mercedes",
+          "Citroen",
+          "Opel"
+        ]
+      }
+    ]
+  }
+]
