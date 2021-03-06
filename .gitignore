@@ -1,8 +1,12 @@
 # Others
 not.txt
 bot-config.json
-users.database.json
-
+**.database.json
+*.database.json
+**.db.json
+*.db.json
+db.*
+db.**
 
 # Logs
 logs
