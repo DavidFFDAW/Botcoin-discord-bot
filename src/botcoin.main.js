@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const { prefix, token, botName, serverID } = require('./bot-config.json');
-const { CoinServiceWrapper } = require('./coin.json.service.js');
-const { getEmbedHelp } = require('./help.embed.generator.js');
+const { CoinServiceWrapper } = require('./botcoin.db.service.js');
+const { getEmbedHelp } = require('./botcoin.help.embed.js');
 const coinsService = new CoinServiceWrapper(__dirname + '/database.json');
 const bot = new Discord.Client();
 
@@ -52,12 +52,7 @@ bot.on('message', message => {
     const showMembers = _ => {
         message.channel.send('Los usuarios se estan recogiendo...');
         // coinsService.clearUserList();
-        console.log('Guild Members: ',message.guild.members);
-        console.log('Memebers Count: ',message.guild.memberCount);
-
-        message.channel.send('Servidor: '+message.guild.name);
-        message.guild.members.cache.forEach(member => message.channel.send(`${ member.user.username }: ${ member.user.id }`));
-        /*
+        
         message.guild.members.fetch()
         .then('Los usuarios se cargaran a continuación')
         .then(members => {
@@ -66,7 +61,7 @@ bot.on('message', message => {
             membersIDs.forEach(id => message.channel.send(`ID: ${ id }`));
         })
         .catch(err => message.channel.send(err.message));
-        */
+        
     }
 
     const notValidCommand = _ => message.channel.send('Este comando no es valido');
