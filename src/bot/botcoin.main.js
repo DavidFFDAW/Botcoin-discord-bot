@@ -1,13 +1,14 @@
 const Discord = require('discord.js');
 const { prefix, token, botName, serverID } = require('./bot-config.json');
-const { CoinServiceWrapper } = require('./botcoin.db.service.js');
-const { getEmbedHelp } = require('./botcoin.help.embed.js');
-const coinsService = new CoinServiceWrapper(__dirname + '/database.json');
+const { UserDbWrapper } = require('../db/database.service.js');
+const { getEmbedHelp } = require('./commands/command.help.js');
+const { embedGenerator } = require('../games/flipacoin/game.flip.coin.js');
+
+const usersService = new UserDbWrapper(__dirname + '/../db/users.database.json');
 const bot = new Discord.Client();
 
+//const channels = { };
 const initialCoins = 100;
-
-let server;
 const forbiddenWords = ['gilipollas','tonto','subnormal','cabron','cabrón','cabrona','hijoputa','joputa','hijo de puta','puta','putas'];
 
 //const settingInitChannel = _ => channel = bot.guilds.cache.get(serverID).channels.cache.get(channelID);
@@ -18,10 +19,9 @@ const gettingCommand = message => {
 }
 
 bot.once('ready',_ => { // makes the times as constructor
-    server = bot.guilds.cache.get(serverID);
     console.log('Initiated '+botName+'!');
-    bot.user.setActivity('my code',{ type: 'WATCHING' });
-    bot.user.setStatus('online');
+    //channels.general = bot.channels.cache.find(channel => channel.name === 'general');
+    //channels.general.send('Tu bot de confianza ha llegado');
 });
 
 bot.on('message', message => {
@@ -42,7 +42,7 @@ bot.on('message', message => {
     }
     const showCoins = _ => {
         const memberID = message.member.id;
-        message.channel.send(`Tus coins son: ${ coinsService.getStringifiedLists(memberID) }`);
+        message.channel.send(`Tus coins son: ${ usersService.selectCoinsByID(memberID) }`);
     }
     const showName = _ => {
         message.channel.send(`MemberName: ${ message.member.user.username }`);
@@ -51,18 +51,49 @@ bot.on('message', message => {
 
     const showMembers = _ => {
         message.channel.send('Los usuarios se estan recogiendo...');
-        // coinsService.clearUserList();
+        
+        usersService.clearDatabase();
         
         message.guild.members.fetch()
-        .then('Los usuarios se cargaran a continuación')
         .then(members => {
-            const membersIDs = members.keyArray;
-            console.log(membersIDs);
-            membersIDs.forEach(id => message.channel.send(`ID: ${ id }`));
+            members.forEach(member => /*!member.user.bot ? */usersService.addUserCoins(member.user.id, member.user.username,initialCoins));/* : '')*/
+            usersService.updateTotalCoins();
         })
+        .then(_ => message.channel.send('Los usuarios se han almacenado correctamente'))
         .catch(err => message.channel.send(err.message));
-        
     }
+
+    const looseCoins = () => {
+        const userID = message.member.id;
+        const coins = +message.content.split(' ')[2];
+        const oldCoins = usersService.selectCoinsByID(userID);
+        usersService.updateCoinsByID(userID, oldCoins - coins);
+        usersService.updateTotalCoins();
+        message.channel.send(`<@${ message.author.id }> Has perdido ${ coins } coins`);
+    }
+
+    const showAllCoins = _ => message.channel.send(`${ usersService.selectAll() }`);
+
+    const flipCoinResult = _ => message.channel.send(embedGenerator());
+
+    const mention = _ => {
+        if(!message.content.includes('@')){
+            throw new Error('Este comando no funciona asi');
+        }
+        const splitted = message.content.split(' ');
+        console.log('-----------------');
+        console.log('Spliteado: ',splitted);
+        const mentionID = splitted[2].replace(/[<@!>]/g,'');
+        console.log('MentionID: ',mentionID);
+        const mentionName = message.guild.members.cache.find(el => el.id === mentionID).user.username;
+        console.log('MentionName: ',mentionName);
+        const userID = message.member.user.id;
+        const userName = message.member.user.username;
+        message.channel.send(`UserName: ${userName},  UserID: ${userID}`);
+        message.channel.send(`MentionName: ${mentionName},  MentionID: ${mentionID}`);
+    }
+
+    const showTotalCoins = _ => message.channel.send('Las coins del bot y totales comunes son: '+usersService.selectCoinsByID(bot.user.id));
 
     const notValidCommand = _ => message.channel.send('Este comando no es valido');
 
@@ -78,10 +109,15 @@ bot.on('message', message => {
     const options = { 
         help: getHelp,
         hello: sayHello,
-        showId: showID,
+        showid: showID,
         mycoins: showCoins,
         myname: showName,
         members: showMembers,
+        everycoin: showAllCoins,
+        flipcoin: flipCoinResult,
+        mentions: mention,
+        totalcoins: showTotalCoins,
+        lose: looseCoins,
         default: notValidCommand,
     };
 
@@ -97,17 +133,7 @@ bot.on('message', message => {
     }
     else {
         checkForbiddenWords();
-    }        
-        /*server.members.fetch()
-            .then(members => members.forEach(member => {
-                const memberID = member.user.id;
-                message.channel.send(member.user.name+':  '+memberID);
-                console.log(memberID);
-                // coinsService.addUser(memberID,initialCoins);
-            }))
-            .then(_ => message.channel.send('Se han añadido todas las monedas a todos los usuarios actuales'))
-            .catch(err => message.channel.send(err.message));
-            */
+    }
 });
 
 bot.login(token);

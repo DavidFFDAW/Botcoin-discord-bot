@@ -4,8 +4,8 @@
   "description": "",
   "main": "bot.js",
   "scripts": {
-    "start:dev": "nodemon src/botcoin.js",
-    "start:prod": "node src/botcoin.js"
+    "start:dev": "nodemon src/bot/botcoin.main.js",
+    "start:prod": "node src/bot/botcoin.main.js"
   },
   "keywords": [],
   "author": "David Fernández Flores",
