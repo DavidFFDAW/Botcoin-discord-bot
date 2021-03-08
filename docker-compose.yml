@@ -1,0 +1,8 @@
+version: '3.1'
+
+services:
+    botcoin:
+        image: dferflo2304/botcoin-bot:main
+        restart: always
+        ports:
+            - 1042:1042

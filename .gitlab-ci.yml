@@ -1,0 +1,33 @@
+stages:
+  - release
+  - deploy
+
+release-prod-job:
+  image: docker:19.03.12
+  services:
+    - docker:19.03.12-dind
+  stage: release
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+  script:
+    - docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" .
+    - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
+  only:
+    - main
+
+deploy-prod-job:
+  stage: deploy
+  before_script:
+   - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )'
+   - eval $(ssh-agent -s)
+   - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+   - mkdir -p ~/.ssh
+   - chmod 700 ~/.ssh
+   - ssh-keyscan gitlab.com >> ~/.ssh/known_hosts
+   - chmod 644 ~/.ssh/known_hosts
+
+  script:
+    - scp -o StrictHostKeyChecking=no ./docker-compose.yml root@$VPS_DEPLOY:/root/botcoin/docker-compose.yml
+    - ssh -o StrictHostKeyChecking=no root@$VPS_DEPLOY "cd /root/botcoin && docker image rm -f dferflo2304/botcoin-bot:main && docker-compose down && docker-compose up -d"
+  only:
+    - main
