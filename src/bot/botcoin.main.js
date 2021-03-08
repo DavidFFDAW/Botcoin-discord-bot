@@ -13,7 +13,7 @@ const forbiddenWords = ['gilipollas','tonto','subnormal','cabron','cabrón','cab
 
 //const settingInitChannel = _ => channel = bot.guilds.cache.get(serverID).channels.cache.get(channelID);
 const gettingCommand = message => {
-    if(!message.content.startsWith(prefix) || message.author.bot) return;   
+    if(!message.content.toLowerCase().startsWith(prefix.toLowerCase()) || message.author.bot) return;   
     const args = message.content.slice(prefix.length).split(/ +/);
     return args.shift().toLowerCase();
 }
@@ -30,7 +30,7 @@ bot.on('message', message => {
 
     //? BOT FUNCTIONALITIES AND METHODS
 
-    const isCommand = message.content.toLowerCase().includes(prefix);
+    const isCommand = message.content.toLowerCase().includes(prefix.toLowerCase());
 
     const sayHello = _ => message.channel.send('Hola Mundo');
     const getHelp = _ => message.channel.send(getEmbedHelp(Discord));
@@ -104,6 +104,11 @@ bot.on('message', message => {
         }
     }
 
+    const test = _ => {
+        const msg = message.channel.send('No se que hago');
+        msg.then(msg => msg.delete());
+    }
+
     //? COMMANDS
 
     const options = { 
@@ -118,6 +123,7 @@ bot.on('message', message => {
         mentions: mention,
         totalcoins: showTotalCoins,
         lose: looseCoins,
+        test: test,
         default: notValidCommand,
     };
 
