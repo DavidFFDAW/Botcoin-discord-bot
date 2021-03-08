@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+require('dotenv').config();
 const { prefix, token, botName, serverID } = require('./bot-config.json');
 const { UserDbWrapper } = require('../db/database.service.js');
 const { getEmbedHelp } = require('./commands/command.help.js');
@@ -142,4 +143,4 @@ bot.on('message', message => {
     }
 });
 
-bot.login(token);
+bot.login(process.env.TOKEN);
