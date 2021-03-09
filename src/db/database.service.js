@@ -4,7 +4,7 @@ class DatabaseService {
     constructor(filename){
         this.filename = filename;
     }
-    _getDbEntries = _ => JSON.parse(fileSystem.readFileSync(this.filename,'utf8'));
+    _getDbEntries = () => JSON.parse(fileSystem.readFileSync(this.filename,'utf8'));
     _insertInto = json => fileSystem.writeFileSync(this.filename, JSON.stringify(json,undefined,2));
 
     // ? - CREATE
@@ -27,7 +27,7 @@ class DatabaseService {
         users.find(users => users.id === userID).coins = newCoins;
         this._insertInto(users);
     }
-    updateTotalCoins = _ => {
+    updateTotalCoins = () => {
         const users = this._getDbEntries();
         const total = users.filter(user => user.username !== 'Botcoin')
                            .reduce((acc, user) => acc + user.coins,0);
@@ -37,7 +37,7 @@ class DatabaseService {
 
 
     // ? - DELETE
-    clearDatabase = _ => this._insertInto([]);
+    clearDatabase = () => this._insertInto([]);
     deleteUserbyID = userID => {
         let users = this._getDbEntries();
         users = users.filter(({ id }) => id !== userID);
