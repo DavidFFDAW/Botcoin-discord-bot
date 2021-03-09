@@ -29,7 +29,7 @@ deploy-prod-job:
    - chmod 644 ~/.ssh/known_hosts
 
   script:
-    - ssh -o StrictHostKeyChecking=no root@$VPS_DEPLOY "cd /root/botcoin rm -rf ./bot"
+    - ssh -o StrictHostKeyChecking=no root@$VPS_DEPLOY "cd /root/botcoin && rm -rf ./bot"
     - ssh -o StrictHostKeyChecking=no root@$VPS_DEPLOY "cd /root/botcoin/ && git clone https://github.com/DavidFFDAW/Botcoin-discord-bot.git bot"
     - ssh -o StrictHostKeyChecking=no root@$VPS_DEPLOY "cd /root/botcoin/bot npm i"
     - ssh -o StrictHostKeyChecking=no root@$VPS_DEPLOY "cd /root/botcoin/bot npm run start:prod"
