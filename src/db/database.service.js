@@ -13,7 +13,7 @@ class DatabaseService {
 
     // ? - READ
     selectAll = _ => this._getDbEntries().reduce((acc,curr) => {
-        acc += curr.id+': '+curr.coins+'\n';
+        acc += curr.username+'( '+curr.id+' ): '+curr.coins+'\n';
         return acc;
     },'');
 
