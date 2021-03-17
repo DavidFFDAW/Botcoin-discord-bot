@@ -29,6 +29,24 @@ Para iniciarlo de forma indefinida y definitiva sin necesidad de actualizarse so
 npm run start:prod
 ```
 
+## Distribución de directorios
+
+La distribución de los directorios en este proyecto se muestra a continuación:
+
+```javascript
+|-src
+|  |-bot // codigo referente al bot y sus comandos
+|  |  |-commands
+|  |  |-botcoin.main // llamada al bot y funcionalidades
+|  |-db // todo lo referente a la "base de datos"
+|  |  |-database.service
+|  |  |-users.database (JSON)
+|  |-games
+|  |  |-flipacoin // codigo del juego flip-a-coin
+|  |  |-...
+|  |  |-...
+```
+
 ## Licencia:
 
 Este proyecto utiliza la licencia MIT:
@@ -54,16 +72,24 @@ Las principales dependencias que utiliza este proyecto son:
 
   *  **[nodemon:](https://www.npmjs.com/package/nodemon)** Esta dependencia se utiliza en este proyecto para iniciar el bot en modo desarrollador y no se utiliza en la aplicación normal.
 
-  ### Comandos:
+  ## Comandos:
+
+  Los comandos en los que aparece {DEV} indican que están aún en desarrollo y es posible no funcionen adecuadamente.
 
   ```javascript
-    // Los comandos en los que aparece {DEV} indican que están aún en desarrollo y es posible no funcionen adecuadamente.
+
     commands: { 
-        hello: 'El bot te saluda'
-        showId: 'Muestra el ID de usuario del usuario ejecutante'
-        myname: 'Muestra tanto el nombre de usuario como el nickname del usuario ejecutante'
-        mycoins{DEV}: 'Muestra las monedas disponibles del usuario que ejecuta este comando'
-        cache{DEV}: 'Perimite asignar una cantidad de monedas iniciales a todos y cada uno de los usuarios del servidor actual'
+        help: 'muestra este mensaje de informacion',
+        hello: 'el bot te saluda',
+        showid: 'muestra el ID de usuario del usuario ejecutante',
+        myname: 'muestra tanto el nombre de usuario como el nickname del usuario ejecutante',
+        mentions [@user]: 'muestra el ID y el username del ejecutante y del mencionado',
+        mycoins{DEV}: 'muestra las monedas disponibles del usuario que ejecuta este comando',
+        members{DEV}: 'permite asignar una cantidad de monedas iniciales a todos y cada uno de los usuarios del servidor actual',
+        everycoin{DEV}: 'obtiene una lista con todos los IDs y coins asignados',
+        flipcoin{DEV}: 'mostrará un mensaje con la imagen de una moneda (cara o cruz)',
+        totalcoins{DEV}: 'muestra en pantalla los coins totales',
+        lose [cantidad]{DEV}: 'la cantidad debe ser un numero y te hará perder dicha cantidad de coins'
     };
   ```
 
