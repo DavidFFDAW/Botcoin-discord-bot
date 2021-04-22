@@ -97,6 +97,22 @@ const giveCoins = msg => {
 const test = msg => {
     msg.channel.send('caca').then(msg => console.log(msg.content));
 }
+
+const shutdown = ({msg,bot}) => {
+    msg.reply('This will cause the bot to shut down...\n Are you sure?\n "yes" or "no"');
+    msg.channel.awaitMessages(message => message.author.id === msg.author.id,
+        { max: 1, time: 10000 }).then(collected => {
+        if(collected.first().content.toLowerCase() === 'yes'){
+            msg.reply('Shutting bot down... This may take a few minutes').then(() => bot.destroy());
+        }
+        else{
+            msg.reply('Action cancelled');
+        }
+    })
+    .catch(_ => {
+        msg.reply('Error: No response provided');
+    });
+}
  // - Exports
 module.exports = {
     hello: sayHello,
@@ -112,4 +128,5 @@ module.exports = {
     mention: mention,
     totalCoins: showTotalCoins,
     giveCoins: giveCoins,
+    shutdown: shutdown,
 };

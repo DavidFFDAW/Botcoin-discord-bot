@@ -4,20 +4,20 @@ const { prefix, botName, serverID } = require('./bot-config.json');
 const commands = require('./botcoin.commands.js');
 const bot = new Discord.Client();
 
-//const channels = { };
+const channels = { };
 const forbiddenWords = ['gilipollas','tonto','subnormal','cabron','cabrón','cabrona','hijoputa','joputa','hijo de puta','puta','putas'];
 
-//const settingInitChannel = _ => channel = bot.guilds.cache.get(serverID).channels.cache.get(channelID);
+// const settingInitChannel = _ => channel = bot.guilds.cache.get(serverID).channels.cache.get(channelID);
 const gettingCommand = message => {
     if(!message.content.toLowerCase().startsWith(prefix.toLowerCase()) || message.author.bot) return;   
     const args = message.content.slice(prefix.length).split(/ +/);
     return args.shift().toLowerCase();
 }
 
-bot.once('ready',_ => { // makes the times as constructor
+bot.once('ready',_ => { // serves as constructor
     console.log('Initiated '+botName+'!');
     //channels.general = bot.channels.cache.find(channel => channel.name === 'general');
-    //channels.general.send('Tu bot de confianza ha llegado');
+    //channels.general.send('No estaba muerto, ¡Estaba de parranda!');
 });
 
 bot.on('message', message => {
@@ -52,6 +52,7 @@ bot.on('message', message => {
         lose: commands.looseCoins,
         givecoins: commands.giveCoins,
         test: commands.testing,
+        shutdown: commands.shutdown,
         default: notValidCommand,
     };
 
@@ -59,7 +60,7 @@ bot.on('message', message => {
 
     if(isCommand){
         try{
-            (options[command]) ? options[command](message) : options.default(message);
+            (options[command]) ? options[command]({ msg: message, bot, token: process.env.TOKEN }) : options.default(message);
         } catch(e){
             message.channel.send('ERROR: '+e.message);
         }
