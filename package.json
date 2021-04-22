@@ -7,9 +7,17 @@
     "start:dev": "nodemon src/bot/botcoin.main.js",
     "start:prod": "node src/bot/botcoin.main.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DavidFFDAW/Botcoin-discord-bot.git"
+  },
   "keywords": [],
   "author": "David Fernández Flores",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DavidFFDAW/Botcoin-discord-bot/issues"
+  },
+  "homepage": "https://github.com/DavidFFDAW/Botcoin-discord-bot#readme",
   "dependencies": {
     "discord.js": "^12.5.1",
     "dotenv": "^8.2.0",
