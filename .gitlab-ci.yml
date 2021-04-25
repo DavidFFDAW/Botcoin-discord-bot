@@ -29,8 +29,11 @@ deploy-prod-job:
    - chmod 644 ~/.ssh/known_hosts
 
   script:
+    - ssh -o StrictHostKeyChecking=no root@$VPS_DEPLOY "cd /root/botcoin && mv ./bot/.env ./"
     - ssh -o StrictHostKeyChecking=no root@$VPS_DEPLOY "cd /root/botcoin && rm -rf ./bot"
     - ssh -o StrictHostKeyChecking=no root@$VPS_DEPLOY "cd /root/botcoin/ && git clone https://github.com/DavidFFDAW/Botcoin-discord-bot.git bot"
-    - ssh -o StrictHostKeyChecking=no root@$VPS_DEPLOY "cd /root/botcoin/bot && docker-compose up -d"
+    - ssh -o StrictHostKeyChecking=no root@$VPS_DEPLOY "cd /root/botcoin && mv ./.env ./bot"
+    - ssh -o StrictHostKeyChecking=no root@$VPS_DEPLOY "cd /root/botcoin/bot && docker image rm -f botcoin-img && docker build -t botcoin-img ."
+    - ssh -o StrictHostKeyChecking=no root@$VPS_DEPLOY "cd /root/botcoin/bot && docker container rm -f botcoin-container && docker run --name botcoin-container -d botcoin-img"
   only:
     - main

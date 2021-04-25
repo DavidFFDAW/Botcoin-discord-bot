@@ -1,4 +1,5 @@
 // - Requires
+const Discord = require('discord.js');
 const { UserDbWrapper } = require('../db/database.service.js');
 const { getEmbedHelp } = require('./commands/command.help.js');
 const { embedGenerator } = require('../games/flipacoin/game.flip.coin.js');
@@ -95,9 +96,10 @@ const giveCoins = msg => {
 }
 
 const test = msg => {
-    msg.channel.send('caca').then(msg => console.log(msg.content));
+    const message = msg.channel.send('Ultimo test realizado el 25/04/2021');
+    message.then(message => message.react('https://discord.com/assets/522c8314225487737f7dd4ead8d4a731.svg'));
 }
-
+/*
 const shutdown = ({msg,bot}) => {
     msg.reply('This will cause the bot to shut down...\n Are you sure?\n "yes" or "no"');
     msg.channel.awaitMessages(message => message.author.id === msg.author.id,
@@ -113,6 +115,7 @@ const shutdown = ({msg,bot}) => {
         msg.reply('Error: No response provided');
     });
 }
+*/
  // - Exports
 module.exports = {
     hello: sayHello,
@@ -128,5 +131,4 @@ module.exports = {
     mention: mention,
     totalCoins: showTotalCoins,
     giveCoins: giveCoins,
-    shutdown: shutdown,
 };

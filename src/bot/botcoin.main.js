@@ -1,4 +1,4 @@
-require('dotenv').config();
+const env = require('dotenv').config({ path: __dirname+'/../../.env' });
 const Discord = require('discord.js');
 const { prefix, botName, serverID } = require('./bot-config.json');
 const commands = require('./botcoin.commands.js');
@@ -12,6 +12,13 @@ const gettingCommand = message => {
     if(!message.content.toLowerCase().startsWith(prefix.toLowerCase()) || message.author.bot) return;   
     const args = message.content.slice(prefix.length).split(/ +/);
     return args.shift().toLowerCase();
+}
+const shootError = error => {
+    return `ERROR {
+        Nombre: ${error.name}
+        Mensaje: ${error.message}
+        Línea: ${error.stack}
+    }`;
 }
 
 bot.once('ready',_ => { // serves as constructor
@@ -52,7 +59,6 @@ bot.on('message', message => {
         lose: commands.looseCoins,
         givecoins: commands.giveCoins,
         test: commands.testing,
-        shutdown: commands.shutdown,
         default: notValidCommand,
     };
 
@@ -60,9 +66,9 @@ bot.on('message', message => {
 
     if(isCommand){
         try{
-            (options[command]) ? options[command]({ msg: message, bot, token: process.env.TOKEN }) : options.default(message);
+            (options[command]) ? options[command](message) : options.default(message);
         } catch(e){
-            message.channel.send('ERROR: '+e.message);
+            message.channel.send(shootError(error));
         }
         
     }
@@ -71,4 +77,4 @@ bot.on('message', message => {
     }
 });
 
-bot.login(process.env.TOKEN);
+bot.login(env.parsed.TOKEN);
