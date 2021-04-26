@@ -99,6 +99,21 @@ const test = msg => {
     const message = msg.channel.send('Ultimo test realizado el 25/04/2021');
     message.then(message => message.react('https://discord.com/assets/522c8314225487737f7dd4ead8d4a731.svg'));
 }
+
+const birthday = async (msg) => {
+    const embedMessage = new Discord.MessageEmbed()
+    .setColor('#22a1f0')
+    .setImage('https://media.istockphoto.com/photos/happy-birthday-made-of-balloon-letters-on-white-background-picture-id1141494010?k=6&m=1141494010&s=612x612&w=0&h=OOzSz4sXqQtwMGW82SplJcg3Ek4Qqy2nCupBlwvuF_s=')
+    .setAuthor('¡¡ Felisidadeee !!','https://jetstax.com/assets/img/games/discord.png')
+    .setTitle('Felis cumpleaños PEDEOO')
+    .setFooter("Powered and created by David Fernández Flores")
+    .setTimestamp();
+
+    await msg.channel.send('Vaya vaya...');
+    await msg.channel.send('Parece que es el cumpleaños de alguien o eso me han dicho');
+    await msg.channel.send('Bueno po eso: Felisidade');
+    await msg.channel.send(msg,embedMessage);
+}
 /*
 const shutdown = ({msg,bot}) => {
     msg.reply('This will cause the bot to shut down...\n Are you sure?\n "yes" or "no"');
@@ -131,4 +146,5 @@ module.exports = {
     mention: mention,
     totalCoins: showTotalCoins,
     giveCoins: giveCoins,
+    birthdate: birthday,
 };

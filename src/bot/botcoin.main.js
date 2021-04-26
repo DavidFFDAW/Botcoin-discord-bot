@@ -59,6 +59,7 @@ bot.on('message', message => {
         lose: commands.looseCoins,
         givecoins: commands.giveCoins,
         test: commands.testing,
+        celebration: commands.birthdate,
         default: notValidCommand,
     };
 
