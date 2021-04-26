@@ -112,7 +112,7 @@ const birthday = async (msg) => {
     await msg.channel.send('Vaya vaya...');
     await msg.channel.send('Parece que es el cumpleaños de alguien o eso me han dicho');
     await msg.channel.send('Bueno po eso: Felisidade');
-    await msg.channel.send(msg,embedMessage);
+    await msg.channel.send(embedMessage);
 }
 /*
 const shutdown = ({msg,bot}) => {
